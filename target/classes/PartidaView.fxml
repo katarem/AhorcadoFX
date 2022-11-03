@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane fx:id="partidaView" alignment="CENTER" hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="18.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <ImageView fx:id="imagen" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2">
+         <image>
+            <Image url="@hangman/1.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="adivinar" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" prefHeight="80.0" prefWidth="1521.0" text="_ _ _ _ _ _ _ _ _ _ _" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#adivinarLetra" prefHeight="30.0" prefWidth="97.0" text="LETRA" GridPane.columnIndex="2" GridPane.rowIndex="4">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#adivinarPalabra" prefHeight="30.0" prefWidth="100.0" text="RESOLVER" GridPane.columnIndex="3" GridPane.rowIndex="4">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label fx:id="puntuacion" alignment="CENTER" prefHeight="45.0" prefWidth="137.0" text="PUNTOS:" GridPane.columnIndex="3" GridPane.columnSpan="2">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="input" prefHeight="26.0" prefWidth="242.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label fx:id="letras" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="305.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="mensaje" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="357.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</GridPane>
