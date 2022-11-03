@@ -40,17 +40,9 @@ public class RootController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-       
-
         Partida.setContent(gc.getView());
         Palabras.setContent(pc.getView());
         Puntuaciones.setContent(sc.getView());
-
-
-
-
-
         try {
             int palabras = pc.getSize();
                 while(!gc.getFinished()){

@@ -13,7 +13,8 @@ public class AhorcadoApp extends Application{
     private static Scene scene;
     @Override public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Ahorcado App");
-        scene = new Scene(loadFXML("RootView"));
+        RootController c = new RootController();
+        scene = new Scene(c.getView());
         primaryStage.setScene(scene);
         primaryStage.setHeight(480);
         primaryStage.setWidth(710);
