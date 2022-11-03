@@ -72,7 +72,6 @@ public class PalabrasController implements Initializable{
         try {
             update();
         } catch (IOException e) {
-            // TODO: handle exception
         }
     }
 

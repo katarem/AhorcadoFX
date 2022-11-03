@@ -1,9 +1,6 @@
 package dad.ahorcado.Partida;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -38,8 +35,6 @@ public class PartidaController implements Initializable {
     private ImageView imagen;
 
     private int ahorcado = 1;
-    private String nombreJugador;
-    private ArrayList<String> scores = new ArrayList<>();
     private ArrayList<String> palabras = new ArrayList<>();
     private String palabra;
     private boolean gameFinished = false;
@@ -190,17 +185,6 @@ public class PartidaController implements Initializable {
         else
             getRandom();
         }
-
-    public void guardar() throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(new File("./src/main/resources/scores.txt")));
-        int cont = 0;
-        scores.add(nombreJugador + " " + getPuntos() + "pt");
-        while (cont < scores.size()) {
-            bw.write(scores.get(cont) + "\n");
-            cont++;
-        }
-        bw.close();
-    }
 
     public GridPane getView(){
         return partidaView;
