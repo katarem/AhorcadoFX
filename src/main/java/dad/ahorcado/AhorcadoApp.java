@@ -6,17 +6,22 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class AhorcadoApp extends Application{
+    RootController c = new RootController();
+    
 
-    private static Scene scene;
     @Override public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Ahorcado App");
-        RootController c = new RootController();
-        scene = new Scene(c.getView());
-        primaryStage.setScene(scene);
+        primaryStage.setScene(new Scene(c.getView()));
         primaryStage.setHeight(480);
         primaryStage.setWidth(710);
         primaryStage.show();
     }
+
+    @Override
+    public void stop() throws Exception {
+        c.cerrar();
+    }
+
     public static void main(String[] args){
         launch(args);
     }

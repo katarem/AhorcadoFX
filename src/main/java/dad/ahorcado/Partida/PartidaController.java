@@ -8,12 +8,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,11 +40,12 @@ public class PartidaController implements Initializable {
     private ArrayList<String> palabras = new ArrayList<>();
     private static String palabra;
     private boolean gameFinished = false;
-
+    private SimpleStringProperty points, nombre;
+    private  TextInputDialog t;
     public PartidaController(){
         //Controller
         try {
-            FXMLLoader l = new FXMLLoader(getClass().getResource("/PartidaView.fxml"));
+                FXMLLoader l = new FXMLLoader(getClass().getResource("/PartidaView.fxml"));
                 l.setController(this);
                 l.load();
             } catch (IOException e) {
@@ -55,11 +59,24 @@ public class PartidaController implements Initializable {
         loadWords();
         imagen.setImage(new Image(getClass().getResourceAsStream("/hangman/1.png")));
         //Bindeamos 
-        puntuacion.setText("Puntos: 0");
+
+        points = new SimpleStringProperty();
+        points.bind(puntuacion.textProperty());
+
+        nombre = new SimpleStringProperty();
+        nombre.bind(t.getEditor().textProperty());
 
     }
 
     // FUNCIONES
+
+    public StringProperty getPointsProperty(){
+        return points;
+    }
+
+    public StringProperty getPlayerProperty(){
+        return nombre;
+    }
 
     public boolean getFinished(){
         return gameFinished;
@@ -92,6 +109,8 @@ public class PartidaController implements Initializable {
 
     @FXML
     public void adivinarLetra() throws IOException {
+
+    if(!gameFinished){
         mensaje.setText("");
         if (input.getText().length()<1)
             mensaje.setText("Introduzca un carácter válido");
@@ -141,9 +160,14 @@ public class PartidaController implements Initializable {
                 mensaje.setText("Esa letra ya la intentaste");
             }
     }
+    else
+        mensaje.setText("El juego ya acabó");
+}
 
     @FXML
     public void adivinarPalabra() throws IOException {
+        
+        if(!gameFinished){
         String intento = input.getText();
         String guess = adivinar.getText().replace(" ", "");
         
@@ -164,6 +188,9 @@ public class PartidaController implements Initializable {
         else
             setPuntuacion(0);
     }
+        else
+            mensaje.setText("El juego ya acabó");
+}
 
     private void setPuntuacion(int puntos) throws IOException {
         if(ahorcado==9)
@@ -173,15 +200,12 @@ public class PartidaController implements Initializable {
             imagen.setImage(new Image(String.format("/hangman/%d.png", ahorcado)));
         }
         input.setText("");
-        String[] a = puntuacion.getText().split(" ");
-        puntos += Integer.parseInt(a[1]);
-        puntuacion.setText("Puntos: " + puntos);
+        puntos += Integer.parseInt(puntuacion.getText());
+        puntuacion.setText(""+puntos);
     }
 
     public String getPuntos() {
-        String[] a = puntuacion.getText().split(" ");
-        String puntos = a[1];
-        return puntos;
+        return puntuacion.getText();
     }
 
     private void checkwin(int cond) {
@@ -190,11 +214,17 @@ public class PartidaController implements Initializable {
             a.setContentText("PERDISTE");
             a.show();
             gameFinished = true;
+            adivinar.setText("Y O U  L O S E");
+
+            t = new TextInputDialog();
+            t.setTitle("Añadir puntuacion");
+            t.setContentText("Escribe tu nombre: ");
+            t.showAndWait();
         }
         else{
             getRandom();
         }
-        }
+    }
 
     public GridPane getView(){
         return partidaView;

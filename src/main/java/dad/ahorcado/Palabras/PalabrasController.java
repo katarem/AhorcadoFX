@@ -69,21 +69,12 @@ public class PalabrasController implements Initializable{
     public void añadir(){
         String palabra = input.getText();
         palabras.add(palabra);
-        try {
-            update();
-        } catch (IOException e) {
-        }
     }
 
     @FXML
     public void quitar(){
         String palabra = input.getText();
         palabras.remove(palabra);
-        try {
-            update();
-        } catch (IOException e) {
-            // TODO: handle exception
-        }
     }
     public void update() throws IOException{ 
         BufferedWriter bw = new BufferedWriter(new FileWriter(new File("./src/main/resources/palabras.txt")));

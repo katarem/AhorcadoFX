@@ -22,7 +22,7 @@ import javafx.scene.layout.AnchorPane;
 public class PuntuacionesController implements Initializable{
 
     @FXML
-    private AnchorPane anclapanel;
+    private AnchorPane scoreView;
 
     @FXML
     private ListView<String> scoreList;
@@ -48,7 +48,6 @@ public class PuntuacionesController implements Initializable{
             	scores.add(line);
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -61,11 +60,11 @@ public class PuntuacionesController implements Initializable{
     }
 
     public AnchorPane getView(){
-        return anclapanel;
+        return scoreView;
     }
 
     public void guardar() throws IOException{ 
-        BufferedWriter bw = new BufferedWriter(new FileWriter(new File("./src/main/resources/palabras.txt")));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(new File("./src/main/resources/scores.txt")));
         int cont = 0;
         while(cont<scores.size()){
             bw.write(scores.get(cont) + "\n");

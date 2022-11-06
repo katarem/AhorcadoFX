@@ -1,9 +1,4 @@
-CJ 10pt
-CJ 8pt
-null 4pt
-null 13pt
-null 13pt
-null 11pt
-null -3pt
-null -4pt
-null 14pt
+paco 2pts
+a 231pts
+l 99pts
+caca 1pt

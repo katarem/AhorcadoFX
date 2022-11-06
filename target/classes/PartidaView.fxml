@@ -47,7 +47,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Label fx:id="puntuacion" alignment="CENTER" prefHeight="45.0" prefWidth="137.0" text="PUNTOS:" GridPane.columnIndex="3" GridPane.columnSpan="2">
+      <Label alignment="CENTER" prefHeight="45.0" prefWidth="137.0" text="PUNTOS:" GridPane.columnIndex="3">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -61,6 +61,11 @@
       <Label fx:id="mensaje" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="357.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <font>
             <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="puntuacion" text="0" GridPane.columnIndex="4">
+         <font>
+            <Font size="23.0" />
          </font>
       </Label>
    </children>
