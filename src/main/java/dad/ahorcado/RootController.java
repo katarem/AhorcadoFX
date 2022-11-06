@@ -54,7 +54,7 @@ public class RootController implements Initializable{
     }    
 
     public void cerrar() throws IOException{
-        sc.add("paco", puntuacion.getValue());
+        sc.add(jugador.getValue(), puntuacion.getValue());
         sc.guardar();
         pc.update();
     }

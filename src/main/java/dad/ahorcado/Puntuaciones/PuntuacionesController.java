@@ -29,9 +29,7 @@ public class PuntuacionesController implements Initializable{
 
     private ListProperty<String> scores = new SimpleListProperty<>(FXCollections.observableArrayList());
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    public PuntuacionesController(){
         try {
             FXMLLoader l = new FXMLLoader(getClass().getResource("/PuntuacionView.fxml"));
             l.setController(this);
@@ -39,7 +37,10 @@ public class PuntuacionesController implements Initializable{
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+    }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         InputStream scoresStream = getClass().getResourceAsStream("/scores.txt");
 		BufferedReader reader = new BufferedReader(new InputStreamReader(scoresStream));
 		String line;

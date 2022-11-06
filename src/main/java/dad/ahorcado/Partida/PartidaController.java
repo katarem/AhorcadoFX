@@ -41,7 +41,7 @@ public class PartidaController implements Initializable {
     private static String palabra;
     private boolean gameFinished = false;
     private SimpleStringProperty points, nombre;
-    private  TextInputDialog t;
+    private  TextInputDialog t = new TextInputDialog();
     public PartidaController(){
         //Controller
         try {
@@ -216,7 +216,6 @@ public class PartidaController implements Initializable {
             gameFinished = true;
             adivinar.setText("Y O U  L O S E");
 
-            t = new TextInputDialog();
             t.setTitle("Añadir puntuacion");
             t.setContentText("Escribe tu nombre: ");
             t.showAndWait();

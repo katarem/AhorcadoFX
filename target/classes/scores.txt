@@ -2,3 +2,6 @@ paco 2pts
 a 231pts
 l 99pts
 caca 1pt
+null 3pts
+null 1pts
+maria 1pts
