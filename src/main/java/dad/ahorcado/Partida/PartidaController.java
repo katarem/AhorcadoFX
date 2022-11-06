@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,17 +35,16 @@ public class PartidaController implements Initializable {
 
     private int ahorcado = 1;
     private ArrayList<String> palabras = new ArrayList<>();
-    private String palabra;
+    private static String palabra;
     private boolean gameFinished = false;
 
     public PartidaController(){
         //Controller
         try {
             FXMLLoader l = new FXMLLoader(getClass().getResource("/PartidaView.fxml"));
-            l.setController(this);
-            l.load();
+                l.setController(this);
+                l.load();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
     }
@@ -55,9 +53,8 @@ public class PartidaController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //Cargamos las palabras
         loadWords();
-        getRandom();
-        //Bindeamos
-        
+        imagen.setImage(new Image(getClass().getResourceAsStream("/hangman/1.png")));
+        //Bindeamos 
         puntuacion.setText("Puntos: 0");
 
     }
@@ -79,71 +76,78 @@ public class PartidaController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        getRandom();
     }
 
     private void getRandom() {
-        palabra = palabras.get((int)Math.random()*palabras.size());
+        int random = (int)(Math.random()*palabras.size());
+        palabra = palabras.get(random);
         String adivString = "";
         for (int i = 0; i < palabra.length(); i++) {
             adivString += "_ ";
         }
+        letras.setText("");
         adivinar.setText(adivString);
     }
 
     @FXML
-    public void adivinarLetra() {
+    public void adivinarLetra() throws IOException {
         mensaje.setText("");
-        String guess = adivinar.getText().replace(" ", "");
-        char intento = input.getText().charAt(0);
-        input.setText("");
-        if (!Character.isLetter(intento)) {
-            mensaje.setText("Carácter no válido");
-        } else if (guess.indexOf(intento) == -1) {
-            if (!(palabra.indexOf(intento) == -1)) {
-                int cont = 0;
-                char[] desglose = guess.toCharArray();
-                for (int i = 0; i < palabra.length(); i++) {
-                    if (Character.toUpperCase(palabra.charAt(i))  == Character.toUpperCase(intento)) {
-                        desglose[i] = intento;
-                        cont++;
+        if (input.getText().length()<1)
+            mensaje.setText("Introduzca un carácter válido");
+        else if(!Character.isLetter(input.getText().charAt(0))){
+            mensaje.setText("Introduzca un carácter válido");
+            input.setText("");
+        }
+        else{
+            String guess = adivinar.getText().replace(" ", "");
+            char intento = input.getText().charAt(0);
+            input.setText("");
+            if (letras.getText().indexOf(intento)==-1 && guess.indexOf(intento)==-1) {
+                if (!(palabra.indexOf(intento) == -1)) {
+                    int cont = 0;
+                    char[] desglose = guess.toCharArray();
+                    for (int i = 0; i < palabra.length(); i++) {
+                        if (Character.toUpperCase(palabra.charAt(i))  == Character.toUpperCase(intento)) {
+                            desglose[i] = intento;
+                            cont++;
+                        }
                     }
+                    guess = "";
+                    for (int i = 0; i < desglose.length - 1; i++) {
+                        guess += desglose[i] + " ";
+                    }
+                    guess += desglose[desglose.length - 1];
+                    String word = guess.replace(" ", "");
+                    if(palabra.equals(word)){
+                        adivinar.setText(palabra);
+                        input.setText("");
+                        letras.setText("");
+                        mensaje.setText("Adivinaste! ahora viene otra");
+                        checkwin(0);
+                    }
+                    else
+                        adivinar.setText(guess);
+                    try {
+                        setPuntuacion(cont);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    letras.setText(letras.getText() + intento);
+                    setPuntuacion(0);
                 }
-                guess = "";
-                for (int i = 0; i < desglose.length - 1; i++) {
-                    guess += desglose[i] + " ";
-                }
-                guess += desglose[desglose.length - 1];
-                String word = guess.replace(" ", "");
-                if(palabra.equals(word)){
-                    adivinar.setText(palabra);
-                    mensaje.setText("Adivinaste! ahora viene otra");
-                    checkwin();
-                }
-                else
-                    adivinar.setText(guess);
-                try {
-                    setPuntuacion(cont);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                letras.setText(letras.getText() + intento);
+            } else
+                mensaje.setText("Esa letra ya la intentaste");
             }
-        } else
-            mensaje.setText("Esa letra ya la intentaste");
     }
 
     @FXML
-    public void adivinarPalabra() {
+    public void adivinarPalabra() throws IOException {
         String intento = input.getText();
         String guess = adivinar.getText().replace(" ", "");
         
-        //Comando para perder y hacer testing
-        if(intento=="IWANNALOSE"){
-            ahorcado=9;
-            checkwin();
-        }
-        else if (palabra.equals(intento)) {
+        if (palabra.equals(intento)) {
             try {
                 setPuntuacion(10);
             } catch (IOException e) {
@@ -155,15 +159,20 @@ public class PartidaController implements Initializable {
             }
             guess += desglose[desglose.length - 1];
             adivinar.setText(guess);
-            checkwin();
+            checkwin(0);
         }
+        else
+            setPuntuacion(0);
     }
 
     private void setPuntuacion(int puntos) throws IOException {
-        if (puntos == 0) {
+        if(ahorcado==9)
+            checkwin(1);
+        else if (puntos == 0) {
             ahorcado++;
             imagen.setImage(new Image(String.format("/hangman/%d.png", ahorcado)));
         }
+        input.setText("");
         String[] a = puntuacion.getText().split(" ");
         puntos += Integer.parseInt(a[1]);
         puntuacion.setText("Puntos: " + puntos);
@@ -175,15 +184,16 @@ public class PartidaController implements Initializable {
         return puntos;
     }
 
-    private void checkwin() {
-        if (ahorcado == 9) {
+    private void checkwin(int cond) {
+        if (cond == 1) {
             Alert a = new Alert(AlertType.ERROR);
             a.setContentText("PERDISTE");
             a.show();
             gameFinished = true;
         }
-        else
+        else{
             getRandom();
+        }
         }
 
     public GridPane getView(){

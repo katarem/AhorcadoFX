@@ -40,8 +40,6 @@ public class PuntuacionesController implements Initializable{
             e1.printStackTrace();
         }
 
-
-    
         InputStream scoresStream = getClass().getResourceAsStream("/scores.txt");
 		BufferedReader reader = new BufferedReader(new InputStreamReader(scoresStream));
 		String line;
