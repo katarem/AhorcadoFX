@@ -1,7 +1,6 @@
 paco 2pts
-a 231pts
-l 99pts
-caca 1pt
-null 3pts
-null 1pts
+juan 231pts
+pedro 99pts
+mariano 1pts
 maria 1pts
+ 0pts

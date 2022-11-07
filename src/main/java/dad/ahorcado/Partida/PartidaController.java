@@ -41,7 +41,8 @@ public class PartidaController implements Initializable {
     private static String palabra;
     private boolean gameFinished = false;
     private SimpleStringProperty points, nombre;
-    private  TextInputDialog t = new TextInputDialog();
+    private TextInputDialog t = new TextInputDialog();
+
     public PartidaController(){
         //Controller
         try {
@@ -68,7 +69,7 @@ public class PartidaController implements Initializable {
 
     }
 
-    // FUNCIONES
+    //MODELO
 
     public StringProperty getPointsProperty(){
         return points;
@@ -81,6 +82,8 @@ public class PartidaController implements Initializable {
     public boolean getFinished(){
         return gameFinished;
     }
+
+    // FUNCIONES
 
     public void loadWords(){
         InputStream palabrasStream = getClass().getResourceAsStream("/palabras.txt");

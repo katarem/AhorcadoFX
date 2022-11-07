@@ -25,9 +25,10 @@ public class PuntuacionesController implements Initializable{
     private AnchorPane scoreView;
 
     @FXML
-    private ListView<String> scoreList;
-
-    private ListProperty<String> scores = new SimpleListProperty<>(FXCollections.observableArrayList());
+    //private ListView<String> scoreList;
+    private ListView<Puntuacion> scoreList;
+    private ListProperty<Puntuacion> scores = new SimpleListProperty<>(FXCollections.observableArrayList());
+    //private ListProperty<String> scores = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public PuntuacionesController(){
         try {
@@ -46,7 +47,10 @@ public class PuntuacionesController implements Initializable{
 		String line;
 		try {
             while ((line = reader.readLine()) != null) {
-            	scores.add(line);
+                String[] a = line.split(",");
+                System.out.println(line);
+            	scores.add(new Puntuacion(a[0],Integer.parseInt(a[1])));
+                //scores.add(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,7 +61,8 @@ public class PuntuacionesController implements Initializable{
     }
 
     public void add(String player, String score){
-        scores.add(player + " " + score + "pts");
+        scores.add(new Puntuacion(player, Integer.parseInt(score)));
+       // scores.add(player + " " + score);
     }
 
     public AnchorPane getView(){

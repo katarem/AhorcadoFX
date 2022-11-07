@@ -65,5 +65,5 @@ gripe
 diarrea
 salud
 enfermedad
-familia
 amigo
+familia
