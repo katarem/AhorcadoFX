@@ -1,5 +1,7 @@
 package dad.ahorcado.Puntuaciones;
 
+import javax.lang.model.util.ElementScanner14;
+
 public class Puntuacion implements Comparable<Puntuacion>{
     private String nombre;
     private int puntos;
@@ -18,13 +20,20 @@ public class Puntuacion implements Comparable<Puntuacion>{
     }
 
     public String toString(){
-        return String.format("%s %dpts", nombre,puntos);
+        return String.format("%s %d puntos", nombre,puntos);
     }
 
     @Override
     public int compareTo(Puntuacion p) {
-        // TODO Auto-generated method stub
-        return 0;
+        int salida;
+
+        if(this.getPuntos()<p.getPuntos())
+            salida = 1;
+        else if(this.getPuntos()==p.getPuntos())
+            salida = 0;
+        else
+            salida = -1;
+        return salida;
     }
 
 }

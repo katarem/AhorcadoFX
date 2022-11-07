@@ -124,6 +124,7 @@ public class PartidaController implements Initializable {
         else{
             String guess = adivinar.getText().replace(" ", "");
             char intento = input.getText().charAt(0);
+            intento = Character.toLowerCase(intento);
             input.setText("");
             if (letras.getText().indexOf(intento)==-1 && guess.indexOf(intento)==-1) {
                 if (!(palabra.indexOf(intento) == -1)) {
@@ -169,12 +170,11 @@ public class PartidaController implements Initializable {
 
     @FXML
     public void adivinarPalabra() throws IOException {
-        
         if(!gameFinished){
         String intento = input.getText();
         String guess = adivinar.getText().replace(" ", "");
         
-        if (palabra.equals(intento)) {
+        if (palabra.equalsIgnoreCase(intento)) {
             try {
                 setPuntuacion(10);
             } catch (IOException e) {
@@ -196,11 +196,13 @@ public class PartidaController implements Initializable {
 }
 
     private void setPuntuacion(int puntos) throws IOException {
-        if(ahorcado==9)
+        if(ahorcado>8)
             checkwin(1);
         else if (puntos == 0) {
             ahorcado++;
             imagen.setImage(new Image(String.format("/hangman/%d.png", ahorcado)));
+            if(ahorcado>8)
+                checkwin(1);
         }
         input.setText("");
         puntos += Integer.parseInt(puntuacion.getText());
@@ -213,11 +215,8 @@ public class PartidaController implements Initializable {
 
     private void checkwin(int cond) {
         if (cond == 1) {
-            Alert a = new Alert(AlertType.ERROR);
-            a.setContentText("PERDISTE");
-            a.show();
             gameFinished = true;
-            adivinar.setText("Y O U  L O S E");
+            adivinar.setText(palabra);
 
             t.setTitle("Añadir puntuacion");
             t.setContentText("Escribe tu nombre: ");

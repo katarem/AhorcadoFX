@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ListProperty;
@@ -42,13 +43,12 @@ public class PuntuacionesController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        InputStream scoresStream = getClass().getResourceAsStream("/scores.txt");
+        InputStream scoresStream = getClass().getResourceAsStream("/scores.csv");
 		BufferedReader reader = new BufferedReader(new InputStreamReader(scoresStream));
 		String line;
 		try {
             while ((line = reader.readLine()) != null) {
                 String[] a = line.split(",");
-                System.out.println(line);
             	scores.add(new Puntuacion(a[0],Integer.parseInt(a[1])));
                 //scores.add(line);
             }
@@ -70,10 +70,11 @@ public class PuntuacionesController implements Initializable{
     }
 
     public void guardar() throws IOException{ 
-        BufferedWriter bw = new BufferedWriter(new FileWriter(new File("./src/main/resources/scores.txt")));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(new File("./src/main/resources/scores.csv")));
         int cont = 0;
+        Collections.sort(scores);
         while(cont<scores.size()){
-            bw.write(scores.get(cont) + "\n");
+            bw.write(scores.get(cont).getUser() + "," +scores.get(cont).getPuntos() + "\n");
             cont++;
         }
         bw.close();
