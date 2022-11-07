@@ -1,7 +1,5 @@
 package dad.ahorcado.Puntuaciones;
 
-import javax.lang.model.util.ElementScanner14;
-
 public class Puntuacion implements Comparable<Puntuacion>{
     private String nombre;
     private int puntos;
